@@ -7,14 +7,22 @@
 //
 
 import UIKit
+import CoreData
 
 class OurViewController2: UITableViewController {
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
+    var locationDetails = [NSManagedObject]()
+    
+    var deleteLocationIndexPath: NSIndexPath? = nil
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        
+//        tableView.registerClass(LocationInfoTableViewCell.self,
+//            forCellReuseIdentifier: "cell")
 
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
@@ -22,12 +30,33 @@ class OurViewController2: UITableViewController {
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
             
         }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
+        
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //1
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext
+        
+        //2
+        let fetchRequest = NSFetchRequest(entityName: "LocationDetail")
+        
+        //3
+        do {
+            let results =
+            try managedContext.executeFetchRequest(fetchRequest)
+            locationDetails = results as! [NSManagedObject]
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -38,67 +67,92 @@ class OurViewController2: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return locationDetails.count
     }
 
-    /*
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
-        return cell
+   override func tableView(tableView: UITableView,
+        cellForRowAtIndexPath
+        indexPath: NSIndexPath) -> UITableViewCell {
+            
+            let cell =
+            tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! LocationInfoTableViewCell
+            
+            let userloc = locationDetails[indexPath.row]
+            
+            let savedLocationname = userloc.valueForKey("name") as? String
+            let savedLocationAddress = userloc.valueForKey("address") as? String
+            
+            //cell!.textLabel!.text = savedLocationname! + " " + savedLocationAddress!
+            
+            if savedLocationname != nil{
+                cell.locationNameLabel.text = savedLocationname!
+                cell.addressLabel.text = savedLocationAddress!
+            }
+            else
+            {
+                cell.locationNameLabel.text = "No Locations Saved !"
+                cell.addressLabel.text = ""
+            }
+            
+            
+            
+            return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    
+   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            deleteLocationIndexPath = indexPath
+            let planetToDelete = locationDetails[indexPath.row]
+            confirmDelete(planetToDelete)
+        }
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    
+    func confirmDelete(loc: NSManagedObject) {
+        let deletelocationName = loc.valueForKey("name") as? String
+        
+        let alert = UIAlertController(title: "Delete location", message: "Are you sure you want to permanently delete \(deletelocationName!)?", preferredStyle: .ActionSheet)
+        
+        let DeleteAction = UIAlertAction(title: "Delete", style: .Destructive, handler: handleDeleteLocation)
+        let CancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: cancelDeleteLocation)
+        
+        alert.addAction(DeleteAction)
+        alert.addAction(CancelAction)
+        
+        // Support display in iPad
+        //alert.popoverPresentationController?.sourceView = self.view
+        //alert.popoverPresentationController?.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0)
+        
+        self.presentViewController(alert, animated: true, completion: nil)
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
+    
+    func handleDeleteLocation(alertAction: UIAlertAction!) -> Void {
+        if let indexPath = deleteLocationIndexPath {
+            
+            let appDel:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let context:NSManagedObjectContext = appDel.managedObjectContext
+            context.deleteObject(locationDetails[indexPath.row] as NSManagedObject)
+            locationDetails.removeAtIndex(indexPath.row)
+            do{
+                try context.save()
+            }catch{
+                print("Error, data not saved!")
+            }
+            
+            //tableView.reloadData()
+            // remove the deleted item from the `UITableView`
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            
+            deleteLocationIndexPath = nil
+           
+        }
     }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func cancelDeleteLocation(alertAction: UIAlertAction!) {
+        deleteLocationIndexPath = nil
     }
-    */
-
 }
