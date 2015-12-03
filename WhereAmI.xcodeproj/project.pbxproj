@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		E32E42891C0F92FC00CCAE19 /* LocationInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32E42881C0F92FC00CCAE19 /* LocationInfoTableViewCell.swift */; };
 		E32E428B1C0FCF9900CCAE19 /* FindFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E32E428A1C0FCF9900CCAE19 /* FindFriendsViewController.swift */; };
+		E399CDC01C0FFD7D000440CB /* FriendLocationDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = E399CDBF1C0FFD7D000440CB /* FriendLocationDetail.swift */; };
+		E39F050A1C109D0A0062030E /* userlocDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = E39F05091C109D0A0062030E /* userlocDetails.plist */; };
 		E3C19F811C0821D400077CF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C19F801C0821D400077CF4 /* AppDelegate.swift */; };
 		E3C19F831C0821D400077CF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3C19F821C0821D400077CF4 /* ViewController.swift */; };
 		E3C19F861C0821D400077CF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E3C19F841C0821D400077CF4 /* Main.storyboard */; };
@@ -46,6 +48,8 @@
 /* Begin PBXFileReference section */
 		E32E42881C0F92FC00CCAE19 /* LocationInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationInfoTableViewCell.swift; sourceTree = "<group>"; };
 		E32E428A1C0FCF9900CCAE19 /* FindFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendsViewController.swift; sourceTree = "<group>"; };
+		E399CDBF1C0FFD7D000440CB /* FriendLocationDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendLocationDetail.swift; sourceTree = "<group>"; };
+		E39F05091C109D0A0062030E /* userlocDetails.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = userlocDetails.plist; sourceTree = "<group>"; };
 		E3C19F7D1C0821D400077CF4 /* WhereAmI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhereAmI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3C19F801C0821D400077CF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E3C19F821C0821D400077CF4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -131,9 +135,11 @@
 				E3C19F821C0821D400077CF4 /* ViewController.swift */,
 				E3C19F841C0821D400077CF4 /* Main.storyboard */,
 				E32E428A1C0FCF9900CCAE19 /* FindFriendsViewController.swift */,
+				E399CDBF1C0FFD7D000440CB /* FriendLocationDetail.swift */,
 				E32E42881C0F92FC00CCAE19 /* LocationInfoTableViewCell.swift */,
 				E3C19F871C0821D400077CF4 /* Assets.xcassets */,
 				E3C19F891C0821D400077CF4 /* LaunchScreen.storyboard */,
+				E39F05091C109D0A0062030E /* userlocDetails.plist */,
 				E3C19F8C1C0821D400077CF4 /* Info.plist */,
 				E3C1A00A1C09824F00077CF4 /* whereAmIDataModel.xcdatamodeld */,
 			);
@@ -273,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3C19F8B1C0821D400077CF4 /* LaunchScreen.storyboard in Resources */,
+				E39F050A1C109D0A0062030E /* userlocDetails.plist in Resources */,
 				E3C19F881C0821D400077CF4 /* Assets.xcassets in Resources */,
 				E3C19F861C0821D400077CF4 /* Main.storyboard in Resources */,
 			);
@@ -304,6 +311,7 @@
 				E3C1A00F1C0982A400077CF4 /* LocationDetail+CoreDataProperties.swift in Sources */,
 				E3C1A00C1C09824F00077CF4 /* whereAmIDataModel.xcdatamodeld in Sources */,
 				E3C1A0101C0982A400077CF4 /* LocationDetail.swift in Sources */,
+				E399CDC01C0FFD7D000440CB /* FriendLocationDetail.swift in Sources */,
 				E32E428B1C0FCF9900CCAE19 /* FindFriendsViewController.swift in Sources */,
 				E3C19F811C0821D400077CF4 /* AppDelegate.swift in Sources */,
 				E3C19FBA1C08324300077CF4 /* LocationManager.swift in Sources */,

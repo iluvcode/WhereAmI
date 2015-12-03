@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>lat</key>
+		<real>26.4779991</real>
+		<key>long</key>
+		<real>-80.0914042</real>
+		<key>name</key>
+		<string>Ability Commerce</string>
+	</dict>
+	<dict>
+		<key>lat</key>
+		<real>26.4675922</real>
+		<key>long</key>
+		<real>-80.1026911</real>
+		<key>name</key>
+		<string>Subway</string>
+	</dict>
+	<dict>
+		<key>lat</key>
+		<real>26.4669007</real>
+		<key>long</key>
+		<real>-80.099172</real>
+		<key>name</key>
+		<string>Community School</string>
+	</dict>
+	<dict>
+		<key>lat</key>
+		<real>26.5116139</real>
+		<key>long</key>
+		<real>-80.08893260000001</real>
+		<key>name</key>
+		<string>Jersey Mike</string>
+	</dict>
+	<dict>
+		<key>lat</key>
+		<real>26.5132508</real>
+		<key>long</key>
+		<real>-80.0907619</real>
+		<key>name</key>
+		<string>Mobile Gas Station</string>
+	</dict>
+</array>
+</plist>
